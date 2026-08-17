@@ -1,0 +1,9 @@
+# reFind writes .bak files next to every source it changes
+*.bak
+
+# Working notes produced while following the prompts
+MigrationBrief.md
+LeftoverLog.md
+
+# Rule files tailored for a specific project
+FireDAC_Migrate_*_*.txt

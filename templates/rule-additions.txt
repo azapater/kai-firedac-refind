@@ -1,0 +1,36 @@
+; =============================================================================
+; <PROJECT> additions
+;
+; Paste this block at the END of a copy of the official FireDAC_Migrate_*.txt.
+; Never edit the file inside the Samples tree, and never touch the stock rules
+; above this banner: rules apply in file order, so additions belong last, where
+; they see identifiers the stock rules have already renamed.
+;
+; One comment line per rule, saying why it exists. A rule that needs a paragraph
+; to justify it is usually a code change wearing a rule's clothes.
+; =============================================================================
+
+; --- Units this project no longer needs --------------------------------------
+; #unuse MyCompany.BdeUtils
+; #replaceunit MyCompany.DataLayer -> MyCompany.DataLayer.FireDAC
+
+; --- Properties that must disappear from PAS and DFM -------------------------
+; #remove MyLegacyProperty
+; #remove DFM: MyDesignTimeOnlyProperty
+
+; --- House wrappers ----------------------------------------------------------
+; Usually not needed. A wrapper descending from TQuery, TADOQuery, TSQLQuery or
+; TIBQuery is already migrated through its ancestor by the stock rules, and
+; keeping its name means every DFM referring to it stays valid. Uncomment only
+; if you decided to flatten the wrapper away.
+; #migrate TAppQuery -> TFDQuery, FireDAC.Comp.Client
+; #migrate TAppDatabase -> TFDConnection, FireDAC.Comp.Client
+
+; --- Project-specific renames ------------------------------------------------
+; Qualify by class whenever the name could mean something else elsewhere.
+; #migrate TAppQuery: Database -> Connection
+; #migrate TAppQuery, TAppTable: DatabaseName -> ConnectionName
+
+; --- Last resort: a plain PCRE pair ------------------------------------------
+; No directive fits, so say what it matches and validate it on one file first.
+; DatabaseName = 'MYALIAS' -> ConnectionDefName = 'MYCONN'
